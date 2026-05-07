@@ -284,12 +284,13 @@ function courseCard(c) {
   const pct = Math.round((c.enrolledCount / c.totalSeats) * 100);
   const isFull = avail <= 0;
   const isAlmost = avail > 0 && avail <= 2;
+  const isMandatory = c.courseType === 'MANDATORY';
   const badgeClass = isFull ? 'full' : isAlmost ? 'almost' : 'available';
   const badgeText = isFull ? '🔴 Full' : isAlmost ? `${avail} left` : `✅ ${avail} seats`;
   const fillClass = isFull ? 'red' : isAlmost ? 'amber' : 'green';
 
   return `
-  <div class="course-card${isFull ? ' is-full' : ''}" onclick="openCourseModal('${c._id}')">
+  <div class="course-card${isFull ? ' is-full' : ''}${isMandatory ? ' is-mandatory' : ''}" onclick="openCourseModal('${c._id}')">
     <div class="card-top">
       <span class="course-code">${c.courseCode}</span>
       <span class="seat-badge ${badgeClass}">${badgeText}</span>
